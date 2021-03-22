@@ -25,6 +25,19 @@ exports.checkEmail = async (req, res, next) => {
 
     next();
 };
+exports.checkEmailExist = async (req, res, next) => {
+    const { email } = req.body;
+
+    const userFound = await User.findOne({ email }, { password: 0 });
+
+    if (!userFound)
+        return res.status(400).json({
+            error: `400`,
+            message: `EL correo electrónico no esta registrado`,
+        });
+
+    next();
+};
 exports.verifyToken = async (req, res, next) => {
     try {
         if (!req.headers.authorization)
