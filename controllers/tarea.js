@@ -63,3 +63,25 @@ exports.listTask = async (req, res, next) => {
       res.status(400).json({ error, message: `Error actualizar la tarea` });
     }
   };
+
+  exports.updateTaskState = async (req, res, next) => {
+    const { id } = req.params;
+  
+    try {
+      if (!id) res.json({ error, message: `El id de la tarea es necesario` });
+      const tasks = await Task.findById({ _id: id }, { user: 0 });
+      if (!tasks) res.json({ error, message: `Error al actualizar el estado` });
+      const oldState = tasks.state;
+  
+      await Task.findByIdAndUpdate(
+        { _id: id },
+        {
+          state: !oldState,
+        }
+      );
+  
+      res.json({ message: `Estado de tarea actualizado` });
+    } catch (error) {
+      res.status(400).json({ error, message: `Error al actualizar el estado` });
+    }
+  };
