@@ -11,4 +11,3 @@ router.put("/update/:id", [tools.verifyToken, taskController.updateTask]);
 router.patch("/state/:id", [tools.verifyToken, taskController.updateTaskState]);
 
 module.exports = router;
-
