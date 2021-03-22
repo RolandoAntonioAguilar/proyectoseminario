@@ -38,5 +38,4 @@ userSchema.statics.getTokenId = async (req) => {
 
   return payload._id;
 }
-
 module.exports = model("User", userSchema);

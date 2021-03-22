@@ -58,7 +58,6 @@ exports.login = async (req, res, next) => {
         res.status(400).json({ error, message: `Error al iniciar sesión` });
     }
 }
-
 exports.sendMail = async (req, res, next) => {
     const { email } = req.body;
     try {
