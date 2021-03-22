@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
@@ -29,5 +30,13 @@ userSchema.statics.encryptPassword = async (password) => {
 userSchema.statics.comparePassword = async (receivedPassword, password) => {
   return await bcrypt.compareSync(receivedPassword, password);
 };
+
+userSchema.statics.getTokenId = async (req) => {
+  const token = req.headers.authorization.split(" ")[1];
+
+  const payload = jwt.verify(token, 'codigo-secreto-unicah2021');
+
+  return payload._id;
+}
 
 module.exports = model("User", userSchema);
