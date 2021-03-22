@@ -43,3 +43,23 @@ exports.listTask = async (req, res, next) => {
       res.status(400).json({ error, message: `Error al crear la tarea` });
     }
   };
+
+  exports.updateTask = async (req, res, next) => {
+    const { title, description } = req.body;
+    const { id } = req.params;
+    try {
+      const task = await Task.findByIdAndUpdate(
+        { _id: id },
+        {
+          title,
+          description,
+        }
+      );
+      if (!task)
+        res.status(400).json({ error, message: `Error actualizar la tarea` });
+  
+      res.json({ message: `Tarea actualizada` });
+    } catch (error) {
+      res.status(400).json({ error, message: `Error actualizar la tarea` });
+    }
+  };
