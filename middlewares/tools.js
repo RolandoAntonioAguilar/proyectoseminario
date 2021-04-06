@@ -28,6 +28,7 @@ exports.checkEmail = async (req, res, next) => {
 exports.checkEmailExist = async (req, res, next) => {
     const { email } = req.body;
 
+
     const userFound = await User.findOne({ email }, { password: 0 });
 
     if (!userFound)
@@ -40,6 +41,7 @@ exports.checkEmailExist = async (req, res, next) => {
 };
 exports.verifyToken = async (req, res, next) => {
     try {
+        // console.log(req.headers.authorization);
         if (!req.headers.authorization)
             return res
                 .status(403)
