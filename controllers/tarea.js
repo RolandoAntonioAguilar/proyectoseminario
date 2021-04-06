@@ -85,3 +85,18 @@ exports.updateTaskState = async (req, res, next) => {
     res.status(400).json({ error, message: `Error al actualizar el estado` });
   }
 };
+
+exports.deleteTask = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    if (!id) res.json({ error, message: `El id de la tarea es necesario` });
+
+    const tasks = await Task.findByIdAndDelete({ _id: id }, { user: 0 });
+    if (!tasks) res.json({ error, message: `Error al eliminar la tarea` });
+    res.json({ message: `Tarea eliminada con éxito` });
+  
+  } catch (error) {
+    res.status(400).json({ error, message: `Error al eliminar la tarea` });
+  }
+};
