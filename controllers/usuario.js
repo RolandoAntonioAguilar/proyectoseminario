@@ -136,3 +136,30 @@ exports.restorePassword = async (req, res, next) => {
             .json({ error, message: `Error al restablecer la contraseña` });
     }
 }
+
+exports.verfiedToken = async (req, res, next) => {
+    try {
+        const { token } = req.params;
+        console.log(token);
+
+        if (!token)
+            return res
+                .status(400)
+                .json({ error: `400`, message: `No se encontró un token valido` });
+
+        const userFound = await User.findOne(
+            { token }, { password: 0 }
+        );
+
+        if (!userFound)
+            return res
+                .status(400)
+                .json({ error: `400`, message: `El token no es valido` });
+
+        res.status(200).json({ message: `El token es valido` });
+
+
+    } catch (error) {
+        res.status(400).json({ error, message: `El token no es valido` });
+    }
+}

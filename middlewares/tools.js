@@ -28,6 +28,7 @@ exports.checkEmail = async (req, res, next) => {
 exports.checkEmailExist = async (req, res, next) => {
     const { email } = req.body;
 
+
     const userFound = await User.findOne({ email }, { password: 0 });
 
     if (!userFound)
