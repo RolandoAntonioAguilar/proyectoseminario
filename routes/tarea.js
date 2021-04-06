@@ -9,5 +9,6 @@ router.get("/task/:id", [tools.verifyToken, taskController.listTask]);
 router.post("/create", [tools.verifyToken, taskController.createTask]);
 router.put("/update/:id", [tools.verifyToken, taskController.updateTask]);
 router.patch("/state/:id", [tools.verifyToken, taskController.updateTaskState]);
+router.delete("/delete/:id", [tools.verifyToken, taskController.deleteTask]);
 
 module.exports = router;

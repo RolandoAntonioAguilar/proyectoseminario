@@ -3,14 +3,16 @@ const jwt = require("jsonwebtoken");
 const transporter = require("../nodemailer");
 const crypto = require("crypto")
 
-exports.list = async (req, res, next) => {
-    try {
-        const users = await User.find({}, { _id: 0, password: 0 });
-        res.json(users);
-    } catch (error) {
-        res.status(400).json({ error, message: `Error al listar las cuentas` });
-    }
-}
+// Solo para pruebas en desarrollo
+// exports.list = async (req, res, next) => {
+//     try {
+//         const users = await User.find({}, { _id: 0, password: 0 });
+//         res.json(users);
+//     } catch (error) {
+//         res.status(400).json({ error, message: `Error al listar las cuentas` });
+//     }
+// }
+
 exports.register = async (req, res, next) => {
     const { email, password } = req.body;
     try {
